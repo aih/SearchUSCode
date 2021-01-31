@@ -21,6 +21,7 @@ export class AppComponent implements OnInit, OnDestroy {
   options: USCSection[] = [];
   title = 'searchusc';
   uscSearchControl = new FormControl();
+  filteredOptions!: Observable<USCSection[]>;
 
   constructor(private searchUscService: SearchUscService) {}
 
@@ -33,10 +34,22 @@ export class AppComponent implements OnInit, OnDestroy {
        console.log(err);
      }));
 
+     this.filteredOptions = this.uscSearchControl.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => this._filter(value))
+      );
+
    }
    ngOnDestroy(): void {
     if (this.subs) {
       this.subs.unsubscribe();
     }
+  }
+
+  private _filter(value: string): USCSection[] {
+    const filterValue = value.toLowerCase();
+
+    return this.options.filter(option => option.cite.toLowerCase().includes(filterValue));
   }
 }

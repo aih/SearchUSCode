@@ -150,7 +150,7 @@
         [matAutocomplete]="auto"
       />
       <mat-autocomplete #auto="matAutocomplete">
-        <mat-option *ngFor="let option of options" [value]="option">
+        <mat-option *ngFor="let option of filteredOptions | async" [value]="option.cite">
           {{ option.cite }}
         </mat-option>
       </mat-autocomplete>
