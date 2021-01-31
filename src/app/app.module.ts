@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AngularMaterialModule } from './angular-material.module';
-
+import {HttpClientModule} from '@angular/common/http';
 
 // For tutorial to add Angular Material components
 // see https://www.positronx.io/angular-8-autocomplete-tutorial-with-angular-material/
@@ -19,6 +19,7 @@ import { AngularMaterialModule } from './angular-material.module';
     BrowserModule,
     AppRoutingModule,
     AngularMaterialModule,
+    HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
     NoopAnimationsModule
