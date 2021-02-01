@@ -14,9 +14,9 @@ const searchkitConfig = {
   host: 'http://localhost:9200',
   index: 'billsections',
   hits: {
-    fields: ['section_text', 'section_header']
+    fields: ['billnumber']
   },
-  query: new MultiMatchQuery({ fields: ['section_text', 'section_header'] }),
+  query: new MultiMatchQuery({ fields: ['billnumber'] }),
   facets: []
 }
 
@@ -36,13 +36,12 @@ const combinedTypeDefs = [
     type Mutation {
       root: String
     }
+    type HitFields {
+      billnumber: String
+    }
     type ResultHit implements SKHit {
       id: ID!
       fields: HitFields
-    }
-    type HitFields {
-      section_header: String
-      section_text: String
     }
   `,
   ...typeDefs
