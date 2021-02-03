@@ -4,10 +4,12 @@ import re
 from lxml import etree
 from elasticsearch import exceptions, Elasticsearch
 es = Elasticsearch()
-from collections import OrderedDict
 
+INDEX_USCSECTIONS = "uscsections"
 PATH_USCMAPPING = os.path.join('..', 'elasticsearch', 'uscsections_mapping.json')
 PATH_USC_TITLE_16 = os.path.join('..', 'data', 'usc16.xml')
+
+NS_USLM = {'': 'http://xml.house.gov/schemas/uslm/1.0'}
 
 def getMapping(mapping_path: str=PATH_USCMAPPING):
   with open(mapping_path, 'r') as mapfile:
@@ -29,16 +31,18 @@ def getChildText(elem, xSelector):
   else:
     return ''
 
-def indexDocs(doc_paths: list[str]=[PATH_USC_TITLE_16]):
+def indexDocs(doc_paths: list[str]=[PATH_USC_TITLE_16], indexName: str=INDEX_USCSECTIONS):
   """
   Index XML documents (with section elements)
 
   Args:
       doc_paths (list[str], optional): list of document paths. In the future may update to directories. Defaults to [PATH_USC_TITLE_16].
+      indexName (str, optional): name of index to index to. Defaults to INDEX_USCSECTIONS.
 
   Raises:
-      Exception: raises parsing exception
+      type: parsing error when parsing from lxml
   """
+
   for doc_path in doc_paths:
     try:
       docTree = etree.parse(doc_path)
@@ -46,23 +50,22 @@ def indexDocs(doc_paths: list[str]=[PATH_USC_TITLE_16]):
       import sys
       raise type(e)(str(e) +
                       '; Could not parse document').with_traceback(sys.exc_info()[2])
-    sections = docTree.xpath('//section')
+    sections = docTree.xpath('//section', namespaces=NS_USLM)
 
     for section in sections:
       sectionDoc = {
-        'id':  '',
-        'identifier':  '',
+        'id':  section.get('id', ''),
+        'identifier':  section.get('identifier', ''),
         'number': getChildText(section, 'num'),
         'heading':  getChildText(section, 'heading'),
         'text': etree.tostring(section, method="text", encoding="unicode"),
         'xml': etree.tostring(section, method="xml", encoding="unicode")
       }
 
-      res = es.index(index="uscsections", body=sectionDoc)
+      res = es.index(index=indexName, body=sectionDoc)
 
-def refreshIndices(index: str="uscsections"):
+def refreshIndices(index: str=INDEX_USCSECTIONS):
   es.indices.refresh(index=index)
-
 
 if __name__ == "__main__":
   createIndex(delete=True)
