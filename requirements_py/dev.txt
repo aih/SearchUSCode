@@ -1,0 +1,6 @@
+# Specifies only dev-specific requirements
+# Imports the common ones too
+-r requirements.txt
+
+ipython==7.20.0
+ipython-genutils==0.2.0
