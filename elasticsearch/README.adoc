@@ -1,0 +1,94 @@
+### Index and search with Elasticsearch
+
+We use Elasticsearch (&#x2265; v7.9.2)
+to index data from XML.
+
+#### Install Elasticsearch
+
+See https://www.elastic.co/guide/en/elasticsearch/reference/current/getting-started-install.html
+
+For MacOS, for example:
+
+* Install
+
+```bash
+$ curl -L -O https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.9.2-darwin-x86_64.tar.gz
+$ tar -xvf elasticsearch-7.9.2-darwin-x86_64.tar.gz
+```
+
+* Run
+
+```bash
+$ cd elasticsearch-7.9.2/bin
+$ ./elasticsearch
+```
+
+#### Indexing with Python
+
+See, e.g., https://kb.objectrocket.com/elasticsearch/use-python-to-index-files-into-elasticsearch-index-all-files-in-a-directory-part-2-852
+
+The functions in `scripts/elastic_load.py` load USC files into the Elasticsearch index. Initially, we are indexing only at the section level, as follows:
+
+```javascript
+{
+    'id': str,
+    'identifier': str,
+    'number': str,
+    'heading': str,
+    'text': str,
+    'xml': str,
+     }
+```
+
+### Backup and restore with elasticdump
+
+* Install `elasticdump` command-line application with npm
+
+`npm install -g elasticdump`
+
+* Store `uscsections` index to a .gz file
+
+`elasticdump --input=http://localhost:9200/uscsections --output=$   | gzip > ./elasticdump.uscsections.json.gz`
+
+* Import data from `.json`
+
+** Unzip the `.json.gz`
+
+`gzip -d elasticdump.uscsections.json.gz`
+
+** Restore data to Elasticsearch
+
+```
+# Import data from .json into ES
+elasticdump \
+  --input "${file_name}.json" \
+  --output=http://localhost:9200/uscsections
+```
+
+Or import from S3
+
+```
+# Import data from S3 into ES (using s3urls)
+elasticdump \
+  --s3AccessKeyId "${access_key_id}" \
+  --s3SecretAccessKey "${access_key_secret}" \
+  --input "s3://${bucket_name}/${file_name}.json" \
+  --output=http://localhost:9200/uscsections
+```
+
+### Install Logstash
+
+NOTE: we are not using currently Logstash to index;
+
+For MacOs, for example:
+
+* Install
+
+```bash
+$ curl -L -O https://artifacts.elastic.co/downloads/logstash/logstash-7.9.2.tar.gz
+$ tar -xvf logstash-7.9.2.tar.gz
+```
+
+* Set up a logstash config file
+
+See https://www.elastic.co/guide/en/logstash/current/configuration.html
