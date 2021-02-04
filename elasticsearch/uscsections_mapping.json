@@ -1,0 +1,22 @@
+{
+  "mappings": {
+    "properties": {
+      "header": {
+        "type": "text"
+      },
+      "section_number": {
+        "type": "text"
+      },
+      "section_header": {
+        "type": "text"
+      },
+      "section_text": {
+        "type": "text"
+      },
+      "section_xml": {
+        "type": "text",
+        "index": false
+      }
+    }
+  }
+}

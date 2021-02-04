@@ -1,5 +1,10 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
+*.pyc
+__pycache__/
+*.log
+.vscode/
+
 # Data files
 /data
 
