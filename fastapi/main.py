@@ -31,12 +31,21 @@ async def index():
     return await es.cluster.health()
 
 
-"""
-  Query string is passed as a query parameter (/search?q="this")
-  The path may be used to specify the field to query on (e.g. 'heading') (NOT YET IMPLEMENTED)
-"""
 @app.get("/search")
 async def search(q: Optional[str] = '', fields: Optional[str] = '', maxresults: Optional[int] = 100):
+  """
+  Query string is passed as a query parameter (/search?q="this")
+  The path may be used to specify the field to query on (e.g. 'heading') (NOT YET IMPLEMENTED)
+
+  Args:
+      q (Optional[str], optional): The string for an Elasticsearch querystring query. Defaults to ''.
+      fields (Optional[str], optional): A comma-separated list of fields to search. Defaults to ''.
+      maxresults (Optional[int], optional): Maximum number of results to retrieve. Defaults to 100.
+
+  Returns:
+      es.search:  An Elasticsearch search result, where `req.body.hits.hits` is a list of results.
+                  `req.body.hits.total = { "value" : 63, "relation" : "eq" }`
+  """
   if not q:
     q = ''
   return await es.search(
