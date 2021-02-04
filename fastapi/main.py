@@ -49,7 +49,9 @@ async def search(q: Optional[str] = '', fields: Optional[str] = '', maxresults: 
   if not q:
     q = ''
   return await es.search(
-      index=INDEX_DEFAULT, body={"query": {"multi_match": {"query": q}}}
+      index=INDEX_DEFAULT, body={"query": {"multi_match": {"query": q}}, "highlight": {
+        "fields": { "text": {} }}
+      }
   )
 
 #@app.get("/delete")
