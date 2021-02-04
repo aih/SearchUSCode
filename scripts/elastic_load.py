@@ -69,8 +69,8 @@ def indexDocs(doc_paths: List[str]=[PATH_USC_TITLE_16], indexName: str=INDEX_USC
       sectionDoc = {
         'id':  section.get('id', ''),
         'identifier':  section.get('identifier', ''),
-        'number': getChildText(section, 'num'),
-        'heading':  getChildText(section, 'heading'),
+        'number': getChildText(section, 'uslm:num'),
+        'heading':  getChildText(section, 'uslm:heading'),
         'text': etree.tostring(section, method="text", encoding="unicode"),
         'xml': etree.tostring(section, method="xml", encoding="unicode")
       }
