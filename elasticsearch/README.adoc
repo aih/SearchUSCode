@@ -27,15 +27,16 @@ $ ./elasticsearch
 
 See, e.g., https://kb.objectrocket.com/elasticsearch/use-python-to-index-files-into-elasticsearch-index-all-files-in-a-directory-part-2-852
 
-The functions in `scripts/elastic_load.py` load a bill file into the Elasticsearch index and provide a sample query. XML files are loaded with `nested` indexing and `nested` query, to account for the hierarchical levels. Initially, we are indexing only at the section level, as follows:
+The functions in `scripts/elastic_load.py` load USC files into the Elasticsearch index. Initially, we are indexing only at the section level, as follows:
 
-```python
+```javascript
 {
-    'section_number': str,
-    'header': str,
-    'section_text': str,
-    'section_xml': str,
-    'section_header':  str
+    'id': str,
+    'identifier': str,
+    'number': str,
+    'heading': str,
+    'text': str,
+    'xml': str,
      }
 ```
 
@@ -47,7 +48,7 @@ The functions in `scripts/elastic_load.py` load a bill file into the Elasticsear
 
 * Store `uscsections` index to a .gz file
 
-`elasticdump --input=http://localhost:9200/billsections --output=$   | gzip > ./elasticdump.uscsections.json.gz`
+`elasticdump --input=http://localhost:9200/uscsections --output=$   | gzip > ./elasticdump.uscsections.json.gz`
 
 * Import data from `.json`
 
