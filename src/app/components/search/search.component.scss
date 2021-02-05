@@ -19,7 +19,7 @@ mat-form-field {
 
 .content {
   display: flex;
-  margin: 82px auto 32px;
+  margin: 20px auto 0;
   padding: 0 16px;
   max-width: 960px;
   flex-direction: column;
@@ -100,8 +100,15 @@ footer a {
     border: 1px solid grey;
     margin: 5px 0;
     padding: 5px;
-    cursor: pointer;
+
+    a {
+      cursor: pointer;
+    }
   }
+}
+
+.mat-drawer-container {
+  height: calc(100% - 60px) !important;
 }
 
 /* Responsive Styles */

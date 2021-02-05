@@ -1,33 +1,50 @@
-<div class="content" role="main">
-  <div class="card search-card">
-    <mat-form-field>
-      <input
-        #search
-        type="text"
-        placeholder="Search the U.S. Code"
-        matInput
-        [formControl]="uscSearchControl"
-        [matAutocomplete]="auto"
-        (keyup.enter)="getData(uscSearchControl.value)"
-      />
-      <mat-autocomplete #auto="matAutocomplete">
-        <mat-option *ngFor="let option of filteredOptions | async" [value]="option.cite" >
-          {{ option.cite }}
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field>
-  </div>
+<mat-drawer-container style="height: 80%" [hasBackdrop]="true">
+  <mat-drawer #drawer>
+    <app-advanced-search></app-advanced-search>
+  </mat-drawer>
+  <mat-drawer-content>
+    <button mat-raised-button (click)="drawer.toggle()">Advanced Search</button>
 
-  <div class="result-list" *ngIf="data">
-    <ng-container *ngFor="let d of data; let i = index">
-      <div *ngIf="i >= paginator.pageIndex * paginator.pageSize && i < (paginator.pageIndex + 1) * paginator.pageSize" class="result-item" >
-        <a [state]="d" [routerLink]="'/page/' + d._id">{{d._source.heading}}</a>
-        <div [innerHTML]="d.highlight.text"></div>
+    <div class="content" role="main">
+
+      <div class="card search-card">
+        <mat-form-field>
+          <input
+            #search
+            type="text"
+            autocomplete="off"
+            placeholder="Search the U.S. Code"
+            matInput
+            [formControl]="uscSearchControl"
+            (keyup.enter)="getData(uscSearchControl.value)"
+          />
+
+          <!--[matAutocomplete]="auto"-->
+          <!--
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let option of filteredOptions | async" [value]="option.cite">
+              {{ option.cite }}
+            </mat-option>
+          </mat-autocomplete>
+          -->
+        </mat-form-field>
       </div>
-    </ng-container>
 
-    <mat-paginator #paginator [pageSize]="5" [length]="data.length"></mat-paginator>
-  </div>
+      <div class="result-list" *ngIf="data">
+        <ng-container *ngFor="let d of data; let i = index">
+          <div
+            *ngIf="i >= paginator.pageIndex * paginator.pageSize && i < (paginator.pageIndex + 1) * paginator.pageSize"
+            class="result-item">
+            <a [state]="d" [routerLink]="'/page/' + d._id">{{d._source.heading}}</a>
+            <div [innerHTML]="d.highlight.text"></div>
+          </div>
+        </ng-container>
 
-</div>
+        <mat-paginator #paginator [pageSize]="5" [length]="data.length"></mat-paginator>
+      </div>
+
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>
+
 
