@@ -32,7 +32,11 @@ export class SearchUscService {
       .get<any>(url)
       .pipe(
         first(),
-        map(res => res.hits.hits.filter((r: any) => r._source.text.toLowerCase().includes(value.toLowerCase()) || r._source.heading.toLowerCase().includes(value.toLowerCase()))),
+        map(res =>
+            res.hits.hits.filter((r: any) =>
+              r._source.text.toLowerCase().includes(value.toLowerCase()) ||
+              r._source.heading.toLowerCase().includes(value.toLowerCase())
+            )),
         catchError(error => {
           return throwError('Error getting data!');
         })
