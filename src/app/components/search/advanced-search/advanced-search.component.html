@@ -1,6 +1,6 @@
 <ng-container [formGroup]="searchParams">
 
-  <h2>Date range</h2>
+  <h2 class="title-advanced-search">Date range</h2>
   <mat-form-field appearance="fill" class="full-width">
     <mat-label>Enter a date range</mat-label>
     <mat-date-range-input [rangePicker]="picker">
@@ -14,7 +14,7 @@
       <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Invalid end date</mat-error>-->
   </mat-form-field>
 
-  <h2>Search by</h2>
+  <h2 class="title-advanced-search">Search by</h2>
   <mat-form-field class="full-width" appearance="fill">
     <mat-label>Search by</mat-label>
     <mat-select multiple formControlName="searchBy">
@@ -24,9 +24,9 @@
     </mat-select>
   </mat-form-field>
 
-  <h2>Sort by</h2>
+  <h2 class="title-advanced-search">Sort by</h2>
   <mat-form-field class="full-width" appearance="fill">
-    <mat-label>Search by</mat-label>
+    <mat-label>Sort by</mat-label>
     <mat-select formControlName="sort" [value]="sortFields[0].value">
       <mat-option *ngFor="let field of sortFields" [value]="field.value">
         {{field.viewValue}}
