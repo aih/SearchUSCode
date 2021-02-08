@@ -36,8 +36,8 @@
           <div
             *ngIf="i >= paginator.pageIndex * paginator.pageSize && i < (paginator.pageIndex + 1) * paginator.pageSize"
             class="result-item">
-            <a [state]="d" [routerLink]="'/page/' + d._id">{{d._source.heading}}</a>
-            <div [innerHTML]="d.highlight.text"></div>
+            <a [state]="d" [routerLink]="'/page/' + d._id">{{d._source.number}}{{d._source.heading}}</a>
+            <div [innerHTML]="d.highlight.text.join('...')"></div>
           </div>
         </ng-container>
 
