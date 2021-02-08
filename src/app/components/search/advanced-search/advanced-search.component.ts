@@ -7,10 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./advanced-search.component.scss']
 })
 export class AdvancedSearchComponent implements OnInit {
-  fields = [
+  searchFields = [
     {value: 'field-1', viewValue: 'Field 1'},
     {value: 'field-2', viewValue: 'Field 2'},
     {value: 'field-3', viewValue: 'Field 3'}
+  ];
+
+  sortFields = [
+    {value: 'az', viewValue: 'A - Z'},
+    {value: 'za', viewValue: 'Z - A'},
   ];
 
   constructor() { }

@@ -1,5 +1,5 @@
 <div>
-  <h2>Advanced search</h2>
+  <h2>Date range</h2>
 </div>
 <mat-form-field appearance="fill">
   <mat-label>Enter a date range</mat-label>
@@ -16,9 +16,19 @@
 
 <h2>Search by</h2>
 <mat-form-field style="width: 100%" appearance="fill">
-  <mat-label>Select fields</mat-label>
+  <mat-label>Search by</mat-label>
   <mat-select multiple>
-    <mat-option *ngFor="let field of fields" [value]="field.value">
+    <mat-option *ngFor="let field of searchFields" [value]="field.value">
+      {{field.viewValue}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+<h2>Sort by</h2>
+<mat-form-field style="width: 100%" appearance="fill">
+  <mat-label>Search by</mat-label>
+  <mat-select [value]="sortFields[0].value">
+    <mat-option *ngFor="let field of sortFields" [value]="field.value">
       {{field.viewValue}}
     </mat-option>
   </mat-select>

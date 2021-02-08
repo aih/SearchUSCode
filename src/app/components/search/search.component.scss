@@ -111,6 +111,16 @@ footer a {
   height: calc(100% - 60px) !important;
 }
 
+.close-sidenav {
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+  &:hover {
+    background-color: #e8e8e8;
+  }
+}
+
 /* Responsive Styles */
 @media screen and (max-width: 767px) {
 
