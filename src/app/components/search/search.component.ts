@@ -27,7 +27,6 @@ export class SearchComponent implements OnInit, OnDestroy {
   data: any;
   options: USCSection[] = [];
   title = 'searchusc';
-  // uscSearchControl = new FormControl();
   filteredOptions!: Observable<USCSection[]>;
 
   private subs = new Subscription();
@@ -85,7 +84,6 @@ export class SearchComponent implements OnInit, OnDestroy {
       relativeTo: this.route,
       queryParams: removeEmpty(this.searchParams.value),
     });
-
 
     /*TODO Request to backend*/
 
