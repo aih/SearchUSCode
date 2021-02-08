@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 
 
 @Component({
@@ -7,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./advanced-search.component.scss']
 })
 export class AdvancedSearchComponent implements OnInit {
+  @Input() searchParams!: FormGroup;
+
   searchFields = [
     {value: 'field-1', viewValue: 'Field 1'},
     {value: 'field-2', viewValue: 'Field 2'},

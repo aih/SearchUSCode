@@ -1,11 +1,11 @@
 <mat-drawer-container style="height: 80%" [hasBackdrop]="false" >
-  <mat-drawer [autoFocus]="false" #drawer [mode]="'over'" (dblclick)="drawer.close()">
+  <mat-drawer [autoFocus]="false" #drawer [mode]="'over'">
     <mat-icon class="close-sidenav" (click)="drawer.close()">close</mat-icon>
-    <app-advanced-search></app-advanced-search>
+    <app-advanced-search [searchParams]="searchParams"></app-advanced-search>
   </mat-drawer>
   <mat-drawer-content>
 
-    <div class="content" role="main">
+    <div class="content" role="main" [formGroup]="searchParams">
 
       <div class="card search-card">
         <mat-form-field>
@@ -16,8 +16,8 @@
             placeholder="Search the U.S. Code"
             matInput
             (focusin)="drawer.open()"
-            [formControl]="uscSearchControl"
-            (keyup.enter)="getData(uscSearchControl.value);"
+            formControlName="q"
+            (keyup.enter)="getData();"
           />
 
           <!--[matAutocomplete]="auto"-->

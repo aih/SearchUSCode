@@ -1,11 +1,12 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { SearchUscService } from '../../services/searchusc/searchusc.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { filter, first, map, startWith, switchMap } from 'rxjs/operators';
 import { USCSection } from '../../app.component';
 import { ActivatedRoute, Router } from '@angular/router';
+import { removeEmpty } from '../../utils/utils';
 
 @Component({
   selector: 'app-search',
@@ -14,12 +15,22 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class SearchComponent implements OnInit, OnDestroy {
   @ViewChild('search') search: any;
+  searchParams = new FormGroup({
+    q: new FormControl(),
+    sort: new FormControl(),
+    searchBy: new FormControl(),
+    from: new FormControl(),
+    to: new FormControl(),
+  });
+
+
   data: any;
-  private subs = new Subscription();
   options: USCSection[] = [];
   title = 'searchusc';
-  uscSearchControl = new FormControl();
+  // uscSearchControl = new FormControl();
   filteredOptions!: Observable<USCSection[]>;
+
+  private subs = new Subscription();
 
   constructor(
     private searchUscService: SearchUscService,
@@ -36,7 +47,7 @@ export class SearchComponent implements OnInit, OnDestroy {
         console.log(err);
       }));
 
-    this.filteredOptions = this.uscSearchControl.valueChanges
+    this.filteredOptions = this.searchParams.controls.q.valueChanges
       .pipe(
         startWith(''),
         map(value => this._filter(value))
@@ -46,7 +57,7 @@ export class SearchComponent implements OnInit, OnDestroy {
       .pipe(
         first(),
         filter(res => {
-          this.uscSearchControl.patchValue(res.q);
+          this.searchParams.patchValue(res);
           return res.q;
         }),
         switchMap(res => this.searchUscService.getMock(res.q))
@@ -69,20 +80,19 @@ export class SearchComponent implements OnInit, OnDestroy {
     return this.options.filter(option => option.cite.toLowerCase().includes(filterValue));
   }
 
-  getData(value: any): void {
+  getData(): void {
     this.router.navigate([], {
       relativeTo: this.route,
-      queryParams: {
-        q: value
-      },
-      queryParamsHandling: 'merge',
+      queryParams: removeEmpty(this.searchParams.value),
     });
 
 
     /*TODO Request to backend*/
 
-    this.searchUscService.getMock(value).subscribe(res => {
+    this.searchUscService.getMock(this.searchParams.controls.q.value).subscribe(res => {
       this.data = res;
     });
   }
+
+
 }
