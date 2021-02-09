@@ -7,6 +7,7 @@ import { catchError, first, map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class SearchUscService {
+  serverName = 'http://localhost:8000';
 
   constructor(private http: HttpClient) {
   }
@@ -26,17 +27,28 @@ export class SearchUscService {
       }));
   }
 
-  getMock(value: string): Observable<any> {
+/*  getMock(value: string): Observable<any> {
     const url = 'assets/data/mock.json';
     return this.http
       .get<any>(url)
       .pipe(
         first(),
         map(res =>
-            res.hits.hits.filter((r: any) =>
-              r._source.text.toLowerCase().includes(value.toLowerCase()) ||
-              r._source.heading.toLowerCase().includes(value.toLowerCase())
-            )),
+          res.hits.hits.filter((r: any) =>
+            r._source.text.toLowerCase().includes(value.toLowerCase()) ||
+            r._source.heading.toLowerCase().includes(value.toLowerCase())
+          )),
+        catchError(error => {
+          return throwError('Error getting data!');
+        })
+      );
+  }*/
+
+  getData(url: string): Observable<any> {
+    const fullUrl = `${this.serverName}${url}`;
+    return this.http.get<any>(fullUrl)
+      .pipe(
+        first(),
         catchError(error => {
           return throwError('Error getting data!');
         })

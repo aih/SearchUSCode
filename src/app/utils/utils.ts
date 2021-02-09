@@ -3,7 +3,7 @@ export function cloneDeep(value: any): any {
 }
 
 
-export function removeEmpty(value: { [x: string]: any; }): object {
+export function removeEmpty(value: { [x: string]: any; }): any {
   const obj = cloneDeep(value);
   Object.keys(obj).forEach((k) => (obj[k] == null || obj[k] === '') && delete obj[k]);
   return obj;

@@ -1,4 +1,25 @@
 .page-wrapper {
-  height: calc(100% - 60px);
-  padding-top: 60px;
+  height: fit-content;
+  padding: 60px 40px;
+  width: 80%;
+  margin: 50px auto;
+  border: 1px solid grey;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+
+  .header {
+  }
+}
+
+h1 {
+  width: fit-content;
+}
+
+
+hr {
+  width: 80%;
 }

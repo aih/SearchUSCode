@@ -32,16 +32,14 @@
       </div>
 
       <div class="result-list" *ngIf="data">
-        <ng-container *ngFor="let d of data; let i = index">
-          <div
-            *ngIf="i >= paginator.pageIndex * paginator.pageSize && i < (paginator.pageIndex + 1) * paginator.pageSize"
-            class="result-item">
-            <a [state]="d" [routerLink]="'/page/' + d._id">{{d._source.number}}{{d._source.heading}}</a>
-            <div [innerHTML]="d.highlight.text.join('...')"></div>
+        <ng-container *ngFor="let d of data.hits; let i = index">
+          <div class="result-item">
+            <a [state]="d" [routerLink]="'/page/' + d._source.id">{{d._source.number || ''}}{{d._source.heading || ''}}</a>
+            <div [innerHTML]="d.highlight?.hasOwnProperty('text') ? d.highlight.text.join('...') : ''"></div>
           </div>
         </ng-container>
 
-        <mat-paginator #paginator [pageSize]="5" [length]="data.length"></mat-paginator>
+        <mat-paginator [pageSize]="10" [length]="data.total.value" (page)="pageChanged($event)"></mat-paginator>
       </div>
 
     </div>

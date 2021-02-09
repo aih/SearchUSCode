@@ -97,12 +97,21 @@ footer a {
 .result-list {
   width: 70%;
   .result-item {
+    min-height: 50px;
     border: 1px solid grey;
     margin: 5px 0;
     padding: 5px;
 
     a {
+      display: block;
+      width: 100%;
       cursor: pointer;
+
+
+    }
+
+    &:hover {
+      background-color: #e6eaff;
     }
   }
 }
