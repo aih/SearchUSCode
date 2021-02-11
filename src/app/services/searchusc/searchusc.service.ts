@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, first, map } from 'rxjs/operators';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -45,7 +46,7 @@ export class SearchUscService {
   }*/
 
   getData(url: string): Observable<any> {
-    const fullUrl = `${this.serverName}${url}`;
+    const fullUrl = `${environment.serverName}${url}`;
     return this.http.get<any>(fullUrl)
       .pipe(
         first(),
