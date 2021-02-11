@@ -1,4 +1,4 @@
-<mat-drawer-container style="height: 80%" [hasBackdrop]="false" >
+<mat-drawer-container style="height: 80%" [hasBackdrop]="false">
   <mat-drawer [autoFocus]="false" #drawer [mode]="'over'">
     <mat-icon class="close-sidenav" (click)="drawer.close()">close</mat-icon>
     <app-advanced-search [searchParams]="searchParams"></app-advanced-search>
@@ -34,12 +34,14 @@
       <div class="result-list" *ngIf="data">
         <ng-container *ngFor="let d of data.hits; let i = index">
           <div class="result-item" *ngIf="d._source.heading || d._source.text">
-            <a [state]="d" [routerLink]="'/page/' + d._source.id">{{d._source.number || ''}}{{d._source.heading || 'No Name'}}</a>
+            <a [state]="d"
+               [routerLink]="'/page/' + d._source.id">{{d._source.number || ''}}{{d._source.heading || 'No Name'}}</a>
             <div [innerHTML]="d.highlight?.hasOwnProperty('text') ? d.highlight.text.join('...') : ''"></div>
           </div>
         </ng-container>
 
-        <mat-paginator style="position: sticky; bottom: 0" [pageSize]="10" [length]="data.total.value" (page)="pageChanged($event)"></mat-paginator>
+        <mat-paginator class="paginator"  [pageSize]="10" [length]="data.total.value"
+                       (page)="pageChanged($event)"></mat-paginator>
       </div>
 
     </div>

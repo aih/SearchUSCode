@@ -96,6 +96,7 @@ footer a {
 
 .result-list {
   width: 70%;
+
   .result-item {
     min-height: 50px;
     border: 1px solid grey;
@@ -125,6 +126,7 @@ footer a {
   top: 0;
   right: 0;
   cursor: pointer;
+
   &:hover {
     background-color: #e8e8e8;
   }
@@ -147,5 +149,10 @@ footer a {
 
 .card.search-card {
   position: sticky;
-  top: 0px;
+  top: 0;
+}
+
+.paginator {
+  position: sticky;
+  bottom: 0;
 }
