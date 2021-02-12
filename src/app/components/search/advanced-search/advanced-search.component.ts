@@ -11,14 +11,14 @@ export class AdvancedSearchComponent implements OnInit {
   @Input() searchParams!: FormGroup;
 
   searchFields = [
-    {value: 'field-1', viewValue: 'Field 1'},
-    {value: 'field-2', viewValue: 'Field 2'},
-    {value: 'field-3', viewValue: 'Field 3'}
+    {value: 'heading', viewValue: 'Heading'},
+    {value: 'text', viewValue: 'Text'},
+    {value: 'xml', viewValue: 'XML'}
   ];
 
   sortFields = [
-    {value: 'az', viewValue: 'A - Z'},
-    {value: 'za', viewValue: 'Z - A'},
+    {value: 'asc', viewValue: 'A - Z'},
+    {value: 'desc', viewValue: 'Z - A'},
   ];
 
   constructor() { }
