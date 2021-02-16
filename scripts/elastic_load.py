@@ -9,6 +9,7 @@ from typing import List
 import logging
 logging.basicConfig(filename='elastic_load.log', level=logging.INFO)
 
+USC_TITLE_REGEX = re.compile(r'usc(?P<title>[1-9][0-9]{0,2})')
 INDEX_USCSECTIONS = "uscsections"
 PATH_USCMAPPING = os.path.join('..', 'elasticsearch', 'uscsections_mapping.json')
 PATH_USC_TITLE_16 = os.path.join('..', 'data', 'usc16.xml')
@@ -61,13 +62,19 @@ def indexDocs(doc_paths: List[str]=[PATH_USC_TITLE_16], indexName: str=INDEX_USC
   """
 
   for doc_path in doc_paths:
-
+    title = ''
+    titleSearch = USC_TITLE_REGEX.search(doc_path.split('/')[-1].replace('.xml', ''))
+    if titleSearch and titleSearch['title']:
+      title = titleSearch['title']
     sections = getSections(doc_path)
 
+    # TODO set id by identifier + extra info if there are multiple identical identifiers
+    # That will allow searching by version (if/when a new title makes changes to a section)
     for i, section in enumerate(sections):
 
       sectionDoc = {
         'id':  section.get('id', ''),
+        'title': title,
         'identifier':  section.get('identifier', ''),
         'number': getChildText(section, 'uslm:num'),
         'heading':  getChildText(section, 'uslm:heading'),

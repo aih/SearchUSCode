@@ -11,9 +11,9 @@ export class AdvancedSearchComponent implements OnInit {
   @Input() searchParams!: FormGroup;
 
   searchFields = [
+    {value: 'title', viewValue: 'Title'},
     {value: 'heading', viewValue: 'Heading'},
-    {value: 'text', viewValue: 'Text'},
-    {value: 'xml', viewValue: 'XML'}
+    {value: 'text', viewValue: 'Text'}
   ];
 
   sortFields = [
