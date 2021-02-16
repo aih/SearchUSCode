@@ -18,7 +18,7 @@ PATH_USC_TITLE_16 = os.path.join('..', 'data', 'usc16.xml')
 NS_USLM = {'uslm': 'http://xml.house.gov/schemas/uslm/1.0'}
 
 def getUSCPaths(dir_path: str=PATH_USC_TITLES):
-  dirpath, _, filenames = next(os.walk(dir_path))
+  (dirpath, _, filenames) = next(os.walk(dir_path))
   #_, _, filenames = next(os.walk(dir_path))
   filenames = list(map(lambda filename: os.path.join(dirpath, filename), filenames))
   return filenames
