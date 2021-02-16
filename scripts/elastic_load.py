@@ -12,9 +12,16 @@ logging.basicConfig(filename='elastic_load.log', level=logging.INFO)
 USC_TITLE_REGEX = re.compile(r'usc(?P<title>[1-9][0-9]{0,2})')
 INDEX_USCSECTIONS = "uscsections"
 PATH_USCMAPPING = os.path.join('..', 'elasticsearch', 'uscsections_mapping.json')
+PATH_USC_TITLES = os.path.join('..', 'data', 'xml_uscAll@116-282not260')
 PATH_USC_TITLE_16 = os.path.join('..', 'data', 'usc16.xml')
 
 NS_USLM = {'uslm': 'http://xml.house.gov/schemas/uslm/1.0'}
+
+def getUSCPaths(dir_path: str=PATH_USC_TITLES):
+  dirpath, _, filenames = next(os.walk(dir_path))
+  #_, _, filenames = next(os.walk(dir_path))
+  filenames = list(map(lambda filename: os.path.join(dirpath, filename), filenames))
+  return filenames
 
 def getMapping(mapping_path: str=PATH_USCMAPPING):
   with open(mapping_path, 'r') as mapfile:
@@ -92,5 +99,17 @@ def refreshIndices(index: str=INDEX_USCSECTIONS):
 
 if __name__ == "__main__":
   createIndex(delete=True)
-  indexDocs()
+  uscPaths = []
+  try:
+    uscPaths = getUSCPaths()
+    logging.info('USC Paths: ' + str(uscPaths))
+  except Exception as e:
+    logging.error(e)
+    pass
+  if uscPaths and len(uscPaths) >0:
+    logging.info('Indexing ' + str(len(uscPaths)) + ' titles.')
+    indexDocs(doc_paths=uscPaths)
+  else:
+    logging.info('Indexing default title')
+    indexDocs()
   refreshIndices()
