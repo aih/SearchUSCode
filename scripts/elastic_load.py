@@ -9,7 +9,7 @@ from typing import List
 import logging
 logging.basicConfig(filename='elastic_load.log', level=logging.INFO)
 
-USC_TITLE_REGEX = re.compile(r'usc(?P<title>[1-9][0-9]{0,2})')
+USC_TITLE_REGEX = re.compile(r'usc(?P<title>[1-9][0-9]{0,2}[aA]?)')
 INDEX_USCSECTIONS = "uscsections"
 PATH_USCMAPPING = os.path.join('..', 'elasticsearch', 'uscsections_mapping.json')
 PATH_USC_TITLES = os.path.join('..', 'data', 'xml_uscAll@116-282not260')

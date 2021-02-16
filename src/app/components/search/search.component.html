@@ -34,6 +34,7 @@
       <div class="result-list" *ngIf="data">
         <ng-container *ngFor="let d of data.hits; let i = index">
           <div class="result-item" *ngIf="d._source.heading || d._source.text">
+            <div *ngIf="d._source?.title" class="title">Title {{d._source.title}}</div>
             <a [state]="d"
                [routerLink]="'/page/' + d._source.id">{{d._source.number || ''}}{{d._source.heading || 'No Name'}}</a>
             <div [innerHTML]="d.highlight?.hasOwnProperty('text') ? d.highlight.text.join('...') : ''"></div>
