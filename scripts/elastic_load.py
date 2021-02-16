@@ -9,7 +9,7 @@ from typing import List
 import logging
 logging.basicConfig(filename='elastic_load.log', level=logging.INFO)
 
-USC_TITLE_REGEX = re.compile(r'usc(?P<title>[1-9][0-9]{0,2}[aA]?)')
+USC_TITLE_REGEX = re.compile(r'usc(?P<title>[0-9]{2,3}[aA]?)$')
 INDEX_USCSECTIONS = "uscsections"
 PATH_USCMAPPING = os.path.join('..', 'elasticsearch', 'uscsections_mapping.json')
 PATH_USC_TITLES = os.path.join('..', 'data', 'xml_uscAll@116-282not260')
@@ -54,7 +54,7 @@ def getSections(doc_path: str=PATH_USC_TITLE_16, ns=NS_USLM):
                       '; Could not parse document').with_traceback(sys.exc_info()[2])
 
     logging.info('Getting sections for: ' + doc_path)
-    return docTree.xpath('//uslm:section', namespaces=ns)
+    return docTree.xpath('//uslm:section[not(ancestor::uslm:section)]', namespaces=ns)
 
 def indexDocs(doc_paths: List[str]=[PATH_USC_TITLE_16], indexName: str=INDEX_USCSECTIONS):
   """
@@ -73,6 +73,9 @@ def indexDocs(doc_paths: List[str]=[PATH_USC_TITLE_16], indexName: str=INDEX_USC
     titleSearch = USC_TITLE_REGEX.search(doc_path.split('/')[-1].replace('.xml', ''))
     if titleSearch and titleSearch['title']:
       title = titleSearch['title']
+      logging.info('Title: ' + title)
+    else:
+      logging.error('No title found for: ' + doc_path)
     sections = getSections(doc_path)
 
     # TODO set id by identifier + extra info if there are multiple identical identifiers
