@@ -82,11 +82,14 @@ def indexDocs(doc_paths: List[str]=[PATH_USC_TITLE_16], indexName: str=INDEX_USC
     # That will allow searching by version (if/when a new title makes changes to a section)
     for i, section in enumerate(sections):
 
+      sectionNumber = getChildText(section, 'uslm:num');
+      sectionNumber_clean = sectionNumber.replace('§', '').replace(' ', '').replace('.', '')
       sectionDoc = {
         'id':  section.get('id', ''),
         'title': title,
         'identifier':  section.get('identifier', ''),
-        'number': getChildText(section, 'uslm:num'),
+        'number': sectionNumber,
+        'number_clean': sectionNumber_clean,
         'heading':  getChildText(section, 'uslm:heading'),
         'text': etree.tostring(section, method="text", encoding="unicode"),
         'xml': etree.tostring(section, method="xml", encoding="unicode")
