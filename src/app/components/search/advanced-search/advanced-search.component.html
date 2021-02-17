@@ -36,4 +36,10 @@
 
 
   <button mat-button color="warn" (click)="this.searchParams.reset();">Reset search</button>
+  <div>
+    <mat-button-toggle-group name="searchMode" aria-label="Set search mode" value="text" #searchMode="matButtonToggleGroup" (change)="updateSearchMode($event.value)">
+      <mat-button-toggle value="text" >Text search</mat-button-toggle>
+      <mat-button-toggle value="querystring" >Use search operators</mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
 </ng-container>

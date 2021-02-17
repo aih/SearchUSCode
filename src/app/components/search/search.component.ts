@@ -22,6 +22,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     searchBy: new FormControl(),
     from: new FormControl(),
     to: new FormControl(),
+    mode: new FormControl()
   });
 
 
@@ -40,6 +41,8 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+
+    /*
     this.subs.add(this.searchUscService.getUSCSections('samplequery').subscribe((data) => {
         console.log(data);
         this.options = data;
@@ -47,6 +50,7 @@ export class SearchComponent implements OnInit, OnDestroy {
       (err: HttpErrorResponse) => {
         console.log(err);
       }));
+      */
 
     this.filteredOptions = this.searchParams.controls.q.valueChanges
       .pipe(
@@ -67,6 +71,8 @@ export class SearchComponent implements OnInit, OnDestroy {
         this.data = res;
       });
 
+      // Todo override this with any mode in the url
+      this.searchParams.patchValue({'mode': 'text'});
   }
 
   ngOnDestroy(): void {

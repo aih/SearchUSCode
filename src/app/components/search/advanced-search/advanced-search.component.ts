@@ -21,9 +21,17 @@ export class AdvancedSearchComponent implements OnInit {
     {value: 'desc', viewValue: 'Z - A'},
   ];
 
-  constructor() { }
+  constructor() {}
+
 
   ngOnInit(): void {
   }
+
+  updateSearchMode(value: string): void {
+      //this.searchParams.disable();
+      //this.searchParams.enable();
+      this.searchParams.patchValue({'mode': value});
+  }
+
 
 }
