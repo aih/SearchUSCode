@@ -42,4 +42,7 @@
       <mat-button-toggle value="querystring" >Use search operators</mat-button-toggle>
     </mat-button-toggle-group>
   </div>
+  <div *ngIf="searchMode.value=='querystring'" style="margin-top:20px; padding: 5px;">
+    NOTE: Select 'Text search' mode to use options above.
+  </div>
 </ng-container>

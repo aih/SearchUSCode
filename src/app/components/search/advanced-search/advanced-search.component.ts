@@ -28,8 +28,17 @@ export class AdvancedSearchComponent implements OnInit {
   }
 
   updateSearchMode(value: string): void {
-      //this.searchParams.disable();
-      //this.searchParams.enable();
+      const options = ['sort', 'searchBy', 'from', 'to'];
+      console.log(value);
+      if(value == 'querystring') {
+        for(const item of options) {
+          this.searchParams.controls[item].disable();
+        }
+      } else {
+        for(const item of options) {
+          this.searchParams.controls[item].enable();
+        }
+      }
       this.searchParams.patchValue({'mode': value});
   }
 
