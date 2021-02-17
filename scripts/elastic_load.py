@@ -83,7 +83,7 @@ def indexDocs(doc_paths: List[str]=[PATH_USC_TITLE_16], indexName: str=INDEX_USC
     for i, section in enumerate(sections):
 
       sectionNumber = getChildText(section, 'uslm:num');
-      sectionNumber_clean = sectionNumber.replace('§', '').replace('.', '')
+      sectionNumber_clean = sectionNumber.replace('§', '').replace('.', '').strip()
       sectionDoc = {
         'id':  section.get('id', ''),
         'title': title,
