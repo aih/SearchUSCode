@@ -4,19 +4,16 @@
       "title": {
         "type": "keyword"
       },
-      "header": {
+      "heading": {
         "type": "text"
       },
-      "section_number": {
+      "number": {
         "type": "text"
       },
-      "section_header": {
+      "text": {
         "type": "text"
       },
-      "section_text": {
-        "type": "text"
-      },
-      "section_xml": {
+      "xml": {
         "type": "text",
         "index": false
       }
