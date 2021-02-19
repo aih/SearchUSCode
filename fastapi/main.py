@@ -76,10 +76,13 @@ async def search(q: Optional[str] = '', index: Optional[str] = '',
   if _from is None:
     _from = 0
   if searchBy is None or searchBy == '':
+    print('No searchBy fields')
     searchByFields = DEFAULT_FIELDS
   else:
+
+    print(searchBy)
     try:
-      searchByFields = json.loads(searchBy)
+      searchByFields = list(map(lambda x: x.strip(), searchBy.split(',')))
     except Exception as err:
       print(err)
     searchByFields = DEFAULT_FIELDS
@@ -88,6 +91,7 @@ async def search(q: Optional[str] = '', index: Optional[str] = '',
   elQuery = {};
 
   if mode and mode.lower()=='querystring':
+    q = q.replace(r'^s:', '^number:').replace(' s:',' number:')
     elQuery = {
       "size": DEFAULT_RESULT_SIZE,
       "query": {
