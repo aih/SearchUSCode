@@ -71,3 +71,11 @@ Navigate to `http://localhost:8000/docs` to confirm that the API is working
 
 
 Serve the API through a proxy on the same port as the Angular application at `/service_py/`, e.g. `/service_py/search?q=Conservation`.
+
+### Data
+
+The U.S. Code XML bulk data is found as 'release points'. The current release point is linked from here: https://uscode.house.gov/download/download.shtml
+
+The most current download is: https://uscode.house.gov/download/releasepoints/us/pl/117/80/xml_uscAll@117-80.zip
+
+Prior release points are found on this page: https://uscode.house.gov/download/priorreleasepoints.htm 
