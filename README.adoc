@@ -1,4 +1,5 @@
 :toc:
+:sectionnums:
 
 # Searchusc
 
@@ -71,6 +72,10 @@ Navigate to `http://localhost:8000/docs` to confirm that the API is working
 
 
 Serve the API through a proxy on the same port as the Angular application at `/service_py/`, e.g. `/service_py/search?q=Conservation`.
+
+## Server: NestJS
+
+Another server application (also running on port `8000`) is available at https://github.com/aih/search-nodejs[aih/search-nodejs].
 
 ### Data
 
