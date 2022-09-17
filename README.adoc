@@ -39,14 +39,13 @@ The server is built with FastAPI. It is self documenting (see `http://localhost:
 
 ### Quickstart
 
-1. Install Python (>= v3.7) and Python virtual environment (I prefer `pyenv virtualenvironments`).
+#### Install Python (>= v3.7) and Python virtual environment (I prefer `pyenv virtualenvironments`).
 
 ```bash
 $ pyenv virtualenv 3.7.4 searchusc
 ```
 
-+
-2. Install requirements from `requirements.txt` (or from `dev.txt` to add development features like iPython):
+#### Install requirements from `requirements.txt` (or from `dev.txt` to add development features like iPython):
 
 ```bash
 $ pyenv activate searchusc
@@ -54,8 +53,7 @@ $ pyenv activate searchusc
 (searchusc)$ pip install -r requirements.txt
 ```
 
-+
-3. Run server
+#### Run server
 
 ```bash
 $ pyenv activate searchusc
